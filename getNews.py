@@ -10,6 +10,8 @@ def getNews(topic, start_time, end_time):
         googlenews.getpage(i)
         tmp = googlenews.result()
         result  += [x["title"]+x["desc"] for x in tmp]
+        for x in tmp:
+        	print(x["desc"])
         
 
     return result
