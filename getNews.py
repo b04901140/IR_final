@@ -3,15 +3,14 @@ from GoogleNews import GoogleNews
 
 def getNews(topic, start_time, end_time):
     googlenews = GoogleNews(start_time, end_time)
-    googlenews.search(topic)
-    tmp = googlenews.result()
-    result = [x["title"]+x["desc"] for x in tmp]
-    for i in range(2,10):
+    result = []
+    for i in range(1,10):
         googlenews.clear()
+        googlenews.search(topic)
         googlenews.getpage(i)
         tmp = googlenews.result()
-        news = [x["title"]+x["desc"] for x in tmp]
-        result += news
+        result  += [x["title"]+x["desc"] for x in tmp]
+        
 
     return result
 
