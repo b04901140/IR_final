@@ -37,13 +37,13 @@ def feature_select(corpus,k):
 	###  ans is list of tuple
 	###  ans = [(doc_id,word,tfidf_val)]
 	###  only return word
-	vectorizer = TfidfVectorizer(sublinear_tf=False, stop_words=None, token_pattern="(?u)\\b\\w+\\b", smooth_idf=True)
+	vectorizer = TfidfVectorizer(sublinear_tf=True, stop_words="english", smooth_idf=True)
 	coo_matrix = vectorizer.fit_transform(corpus).tocoo()
 	features = vectorizer.get_feature_names()
 	vocab = [features[wid] for wid in coo_matrix.col]
 	c_tuples =  zip(coo_matrix.row, vocab, coo_matrix.data)
-	ans = sorted(c_tuples, key=lambda x:x[2],reverse = True)[:k]
-	word = [tup[1] for tup in ans]
+	ans = sorted(c_tuples, key=lambda x:x[2],reverse = True)
+	word = list(set([tup[1] for tup in ans]))[:k]
 	return word,c_tuples
 def news_select(query,corpus,c_tuples,k):
 	Total_news_num = len(corpus)
