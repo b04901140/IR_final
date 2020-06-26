@@ -1,4 +1,5 @@
 import numpy as np
+import time
 from argparse import ArgumentParser
 from datetime import datetime as dt
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -19,13 +20,14 @@ def create_corpus(args):
 		## start_time and end_time need modify
 		start_time = subtract_month(args.time,_+1)
 		end_time = subtract_month(args.time,_)
-		corpus[end_time] =  getNews(args.query,start_time,end_time)
+		with Timer("crawling %s ,start_from %s , end in %s"%(args.query,start_time,end_time)):
+			corpus[end_time] =  getNews(args.query,start_time,end_time)
 	return corpus
 def subtract_month(time,k):
 	#time = '02/01/2020'
 	dte = dt.strptime(time, '%m/%d/%Y').date()
 	result = dte + relativedelta(months=-k)
-	result.strftime("%m/%d/%Y")
+	result = str(result.strftime("%m/%d/%Y"))
 	return result
 
 def feature_select(corpus,k):
@@ -61,3 +63,23 @@ def news_select(query,corpus,c_tuples,k):
 	news_relv = np.array(news_relv)
 	ans = news_relv.argsort()[-k:][::-1]
 	return ans
+class Timer(object):
+	""" A quick tic-toc timer
+	Credit: http://stackoverflow.com/questions/5849800/tic-toc-functions-analog-in-python
+	"""
+
+	def __init__(self, name=None, verbose=True):
+		self.name = name
+		self.verbose = verbose
+		self.elapsed = None
+
+	def __enter__(self):
+		self.tstart = time.time()
+		return self
+
+	def __exit__(self, type, value, traceback):
+		self.elapsed = time.time() - self.tstart
+		if self.verbose:
+			if self.name:
+				print ('[%s]' % self.name,)
+			print ('Elapsed: %s' % self.elapsed)
