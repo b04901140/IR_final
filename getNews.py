@@ -30,6 +30,8 @@ def getNews(topic, start_time, end_time):
         tmp = googlenews.result()
         #result  += [x["title"]+x["desc"] for x in tmp]
         result += get_content(tmp)
+         
+
     return result
 
 
