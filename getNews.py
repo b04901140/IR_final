@@ -4,7 +4,13 @@ import requests
 import urllib
 
 def isRedirect(url):
+    print("start")
+    print(url)
     response = requests.get(url, allow_redirects=True)
+    print(response.url)
+    print('done')
+    if (len(response.history) == 0):
+        return True
     if response.url != url:
         return True
     return False
@@ -12,7 +18,7 @@ def get_content(result):
     ret = []
     for i, news in enumerate(result):
         url = news['link']
-        if isRedirect(url): continue
+        if isRedirect(url): continue 
         response = requests.get(url)
         article = NewsPlease.from_url(url)
         if (article.maintext == 'None'): continue
