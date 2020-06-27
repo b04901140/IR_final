@@ -39,7 +39,7 @@ class News:
         '''
         try:
             response = requests.get(url, allow_redirects=True)
-            if reponse.url != url:
+            if response.url != url:
                 return True
         except:
             return True
