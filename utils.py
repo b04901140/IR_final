@@ -17,6 +17,7 @@ def init_args():
     parser.add_argument('--time', default='12/10/2019')
     parser.add_argument('--finish', default=False)
     parser.add_argument('--months', default=1)
+    parser.add_argument('--pages', default=1)
     return parser.parse_args()
 
 def create_corpus(args):
@@ -26,7 +27,7 @@ def create_corpus(args):
     for month in range(month_count):
         start_time  = subtract_month(args.time, month+1)
         end_time    = subtract_month(args.time, month)
-        all_corpus[end_time] = get_corpus_in_time_interval(args.query, start_time, end_time)
+        all_corpus[end_time] = get_corpus_in_time_interval(args.query, start_time, end_time, args.pages)
     
     return all_corpus
 

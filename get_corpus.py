@@ -2,12 +2,10 @@ from GoogleNews import GoogleNews
 
 from News import News
 
-def get_corpus_in_time_interval(query, start_time, end_time):
+def get_corpus_in_time_interval(query, start_time, end_time, page_count):
     
     gn = GoogleNews(start_time, end_time)
     corpus = list()
-    
-    page_count = 1
 
     gn.search(query)
     for i in range(1, page_count + 1):
