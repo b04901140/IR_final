@@ -1,10 +1,10 @@
 import numpy as np
 import time
 import csv
-from nltk.tokenize import word_tokenize
+from nltk  import word_tokenize,pos_tag
 from nltk.stem import PorterStemmer
 from nltk.stem import WordNetLemmatizer
-from nltk.corpus import stopwords
+from nltk.corpus import stopwords ,wordnet
 from argparse import ArgumentParser
 from datetime import datetime as dt
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -53,16 +53,25 @@ def feature_select(corpus,k):
 	ans = sorted(c_tuples, key=lambda x:x[2],reverse = True)
 	word = list(set([tup[1] for tup in ans]))[:k]
 	return word,c_tuples
-def feature_select_with_chi2(corpus,lables,k):
+def feature_select_with_chi2(title,text,lables,k):
 	lables = np.array(lables)
 	vectorizer = TfidfVectorizer(max_features = 100000,sublinear_tf=True, stop_words="english", smooth_idf=True)
+	corpus = [title[_] + text[_] for _ in range(len(text))]
 	tfidf = vectorizer.fit_transform(corpus)
 	coo_matrix = tfidf.tocoo()
 	features = vectorizer.get_feature_names()
 	vocab = [features[wid] for wid in coo_matrix.col]
 	c_tuples =  zip(coo_matrix.row, vocab, coo_matrix.data)
 
-	chi2score = chi2(tfidf,lables)[0]
+
+
+
+
+	#for title
+	vec2 = TfidfVectorizer(max_features = 100000,sublinear_tf=True, stop_words="english", smooth_idf=True)
+	tfidf_for_title = vec2.fit_transform(title)
+
+	chi2score = chi2(tfidf_for_title,lables)[0]
 	scores = list(zip(features,chi2score))
 	candidated  = sorted(scores,key = lambda x :x[1])
 	all_ans = list(zip(*candidated))
@@ -93,11 +102,13 @@ def preprocess(corpus):
 	stop_words = set(stopwords.words('english'))
 	for index ,news in enumerate(corpus):
 		token_words = word_tokenize(news)
+		tag_list = pos_tag(token_words)
 		token_words = [w for w in token_words if w not in stop_words]
-		token_words = [lemmatizer.lemmatize(w) for w in token_words]
+		token_words = [lemmatizer.lemmatize(w[0],pos = get_wordnet_pos(w[1])or wordnet.NOUN) for w in tag_list]
 		#token_words = [porter.stem(w) for w in token_words]
-
-		corpus[index] = (" ".join(token_words))
+		result = (" ".join(token_words))
+		result = ''.join([i for i in result if not i.isdigit()])
+		corpus[index] = result
 	return corpus
 
 def write_to_csv(month,topk_term,rel_news):
@@ -127,3 +138,15 @@ class Timer(object):
 			if self.name:
 				print ('[%s]' % self.name,)
 			print ('Elapsed: %s' % self.elapsed)
+
+def get_wordnet_pos(tag):
+	if tag.startswith('J'):
+		return wordnet.ADJ
+	elif tag.startswith('V'):
+		return wordnet.VERB
+	elif tag.startswith('N'):
+		return wordnet.NOUN
+	elif tag.startswith('R'):
+		return wordnet.ADV
+	else:
+		return None

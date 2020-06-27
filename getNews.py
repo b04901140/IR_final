@@ -12,37 +12,42 @@ def isRedirect(url):
 		return True
 	return False
 def get_content(result):
-	ret = []
+	titles = []
+	texts = []
 	for i, news in enumerate(result):
 		url = news['link']
 		if isRedirect(url): continue 
 		response = requests.get(url)
 		if response.status_code != 200: continue
 		article = NewsPlease.from_url(url)
-		if (article.maintext == 'None'): continue
+		if (article.maintext == 'None' or article.title == "None"): continue
 		else:
 			#data = {"title":article.title,"text":article.maintext}
-			ret.append(article.title + article.maintext)
-	return ret
+			titles.append(article.title)
+			texts.append(article.maintext)
+			#ret.append(article.title + article.maintext)
+	return (titles,texts)
 
 def getNews(topic, start_time, end_time):
 	googlenews = GoogleNews(start = start_time, end = end_time)
-	result = []
+	titles = []
+	texts = []
 	labels = []
-	for i in range(1,5):
+	for i in range(1,2):
 		googlenews.clear()
 		googlenews.search(topic)
 		googlenews.getpage(i)
 		tmp = googlenews.result()
 
 		#result  += [x["title"]+x["desc"] for x in tmp]
-		tmp_result = get_content(tmp)
-		result += tmp_result
+		(tmp_title , tmp_text) = get_content(tmp)
+		titles += tmp_title
+		texts += tmp_text
 		if i == 1:
-			labels += [1 for _ in range(len(tmp_result))]
+			labels += [1 for _ in range(len(tmp_text))]
 		else:
-			labels += [0 for _ in range(len(tmp_result))]
+			labels += [0 for _ in range(len(tmp_text))]
 	#labels = np.array(labels)
-	return (result , labels)
+	return (titles , texts , labels)
 
 
