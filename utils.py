@@ -27,7 +27,7 @@ def create_corpus(args):
     for month in range(month_count):
         start_time  = subtract_month(args.time, month+1)
         end_time    = subtract_month(args.time, month)
-        all_corpus[end_time] = get_corpus_in_time_interval(args.query, start_time, end_time, args.pages)
+        all_corpus[end_time] = get_corpus_in_time_interval(start_time, end_time, args)
     
     return all_corpus
 
