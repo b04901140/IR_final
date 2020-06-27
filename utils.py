@@ -2,7 +2,9 @@ import numpy as np
 import time
 import csv
 from nltk.tokenize import word_tokenize
-from nltk.stem import PorterStemmer 
+from nltk.stem import PorterStemmer
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords
 from argparse import ArgumentParser
 from datetime import datetime as dt
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -86,13 +88,15 @@ def news_select(query,corpus,c_tuples,k):
 	return ans_index
 def preprocess(corpus):
 	porter = PorterStemmer()
+	lemmatizer = WordNetLemmatizer()
+	stop_words = set(stopwords.words('english'))
 	for index ,news in enumerate(corpus):
 		token_words = word_tokenize(news)
-		stem_sent = []
-		for w in token_words:
-			stem_sent.append(porter.stem(w))
-			stem_sent.append(" ")
-		corpus[index] = "".join(stem_sent)
+		token_words = [w for w in token_words if w not in stop_words]
+		token_words = [lemmatizer.lemmatize(w) for w in token_words]
+		#token_words = [porter.stem(w) for w in token_words]
+
+		corpus[index] = (" ".join(token_words))
 	return corpus
 
 def write_to_csv(month,topk_term,rel_news):
