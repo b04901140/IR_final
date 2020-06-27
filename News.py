@@ -2,10 +2,6 @@ from newsplease import NewsPlease
 import requests
 
 class News:
-    '''
-    def __init__(self, title, mainText, date, link):
-        self.setContent(title, mainText, date, link)
-    '''
 
     def __init__(self, raw_news):
 
