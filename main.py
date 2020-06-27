@@ -4,11 +4,11 @@ import json
 def main():
 	args =  init_args()
 	# all_corpus has six small corpus,is a dict{}
-	# all_corpus = create_corpus(args)
+	all_corpus = create_corpus(args)
 	# with open("Trump.json","w") as fp:
 	# 	json.dump(all_corpus,fp)
-	with open("Trump.json","r") as fp:
-		all_corpus = json.load(fp)
+	# with open("Trump.json","r") as fp:
+	# 	all_corpus = json.load(fp)
 	for key,(titles,texts,labels) in all_corpus.items():
 		all_corpus[key] = (preprocess(titles),preprocess(texts),labels)
 	for month,(titles,texts,labels) in all_corpus.items():

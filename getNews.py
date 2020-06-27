@@ -19,8 +19,11 @@ def get_content(result):
 		if isRedirect(url): continue 
 		response = requests.get(url)
 		if response.status_code != 200: continue
-		article = NewsPlease.from_url(url)
-		if (article.maintext == 'None' or article.title == "None"): continue
+		try:
+			article = NewsPlease.from_url(url)
+		except Exception as e:
+			continue
+		if (article.maintext == None or article.title == None): continue
 		else:
 			#data = {"title":article.title,"text":article.maintext}
 			titles.append(article.title)
