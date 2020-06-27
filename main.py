@@ -5,8 +5,7 @@ from utils import create_corpus, init_args
 def main():
     args = init_args()
 
-    month_count = 1
-    all_corpus = create_corpus(args, month_count)
+    all_corpus = create_corpus(args)
 
     for end_time, corpus in all_corpus.items():
         print(end_time, len(corpus))

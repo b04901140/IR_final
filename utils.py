@@ -11,28 +11,18 @@ from get_corpus import get_corpus_in_time_interval
 from News import News
 
 def init_args():
-	# you can add any args as you need here
-	parser = ArgumentParser()
-	parser.add_argument('--query',default='Trump')
-	parser.add_argument('--time',default='12/10/2019')
-	parser.add_argument('--finish',default = False)
-	return parser.parse_args()
+    # you can add any args as you need here
+    parser = ArgumentParser()
+    parser.add_argument('--query', default='Trump')
+    parser.add_argument('--time', default='12/10/2019')
+    parser.add_argument('--finish', default=False)
+    parser.add_argument('--months', default=1)
+    return parser.parse_args()
 
-'''
 def create_corpus(args):
-	corpus = {}
-	## parse args.time into six month
-	for _ in range(6):
-		## start_time and end_time need modify
-		start_time = subtract_month(args.time,_+1)
-		end_time = subtract_month(args.time,_)
-		corpus[end_time] =  getNews(args.query,start_time,end_time)
-	return corpus
-'''
-
-def create_corpus(args, month_count):
     all_corpus = dict()
-    
+    month_count = args.months
+
     for month in range(month_count):
         start_time  = subtract_month(args.time, month+1)
         end_time    = subtract_month(args.time, month)
