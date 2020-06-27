@@ -9,8 +9,8 @@ def main():
 	# 	json.dump(all_corpus,fp)
 	with open("Trump.json","r") as fp:
 		all_corpus = json.load(fp)
-	for key,val in all_corpus.items():
-		all_corpus[key] = preprocess(val)
+	for key,(m_corpus,labels) in all_corpus.items():
+		all_corpus[key] = (preprocess(m_corpus),labels)
 	for month,(m_corpus,labels) in all_corpus.items():
 		#topk_term,c_tuple = feature_select(m_corpus,k = 20)
 		topk_term,c_tuple = feature_select_with_chi2(m_corpus,labels,k = 20)
