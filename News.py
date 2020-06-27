@@ -29,14 +29,6 @@ class News:
         self.link = link
 
     def isRedirected(self, url):
-        '''
-        response = requests.get(url, allow_redirects=True)
-        if len(response.history) == 0:
-            return True
-        if response.url != url:
-            return True
-        return False
-        '''
         try:
             response = requests.get(url, allow_redirects=True)
             if response.url != url:
@@ -46,9 +38,19 @@ class News:
         return False
 
     def get_mainText(self, url):
-        #if self.isRedirected(url):
-        #    return 'failr'
-        article = NewsPlease.from_url(url)
-        if article.maintext == 'None':
-            return 'failnp'
-        return article.title + article.maintext
+        if self.isRedirected(url):
+            return 'fail'
+        
+        response = requests.get(url)
+        if response.status_code != 200:
+            return 'fail'
+
+        try:
+            article = NewsPlease.from_url(url)
+        except:
+            return 'fail'
+
+        if article.maintext == None or article.title == None:
+            return 'fail'
+
+        return article.maintext
