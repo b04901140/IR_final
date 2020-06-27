@@ -3,8 +3,9 @@ from GoogleNews import GoogleNews
 from News import News
 
 def get_corpus_in_time_interval(query, start_time, end_time):
+    
     gn = GoogleNews(start_time, end_time)
-    result = list()
+    corpus = list()
     
     page_count = 1
 
@@ -15,9 +16,8 @@ def get_corpus_in_time_interval(query, start_time, end_time):
         all_rel_news = gn.result()
         for raw_news in all_rel_news:
             news = News(raw_news)
-            if 'fail' not in news.mainText:
-                result.append(news)
-#                print(news)
+            if news.mainText != 'fail':
+                corpus.append(news)
 
-    return result
+    return corpus
 
