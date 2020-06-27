@@ -4,9 +4,9 @@ import json
 def main():
 	args =  init_args()
 	# all_corpus has six small corpus,is a dict{}
-	# all_corpus = create_corpus(args)
-	# with open("Trump.json","w") as fp:
-	# 	json.dump(all_corpus,fp)
+	all_corpus = create_corpus(args)
+	with open("Trump.json","w") as fp:
+		json.dump(all_corpus,fp)
 	with open("Trump.json","r") as fp:
 		all_corpus = json.load(fp)
 	for key,(m_corpus,labels) in all_corpus.items():

@@ -54,6 +54,7 @@ def feature_select(corpus,k):
 	word = list(set([tup[1] for tup in ans]))[:k]
 	return word,c_tuples
 def feature_select_with_chi2(corpus,lables,k):
+	lables = np.array(lables)
 	vectorizer = TfidfVectorizer(max_features = 100000,sublinear_tf=True, stop_words="english", smooth_idf=True)
 	tfidf = vectorizer.fit_transform(corpus)
 	coo_matrix = tfidf.tocoo()

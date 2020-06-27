@@ -29,7 +29,7 @@ def getNews(topic, start_time, end_time):
 	googlenews = GoogleNews(start = start_time, end = end_time)
 	result = []
 	labels = []
-	for i in range(1,2):
+	for i in range(1,5):
 		googlenews.clear()
 		googlenews.search(topic)
 		googlenews.getpage(i)
@@ -42,7 +42,7 @@ def getNews(topic, start_time, end_time):
 			labels += [1 for _ in range(len(tmp_result))]
 		else:
 			labels += [0 for _ in range(len(tmp_result))]
-	labels = np.array(labels)
+	#labels = np.array(labels)
 	return (result , labels)
 
 
