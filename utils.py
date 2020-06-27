@@ -1,8 +1,12 @@
 import numpy as np
 import time
+import csv
+from nltk.tokenize import word_tokenize
+from nltk.stem import PorterStemmer 
 from argparse import ArgumentParser
 from datetime import datetime as dt
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_selection import chi2
 from dateutil.relativedelta import relativedelta
 from getSentSimilarity import get_sent_similarity
 from getNews import getNews
@@ -21,7 +25,7 @@ def create_corpus(args):
 		start_time = subtract_month(args.time,_+1)
 		end_time = subtract_month(args.time,_)
 		with Timer("crawling %s ,start_from %s , end in %s"%(args.query,start_time,end_time)):
-			corpus[end_time] =  getNews(args.query,start_time,end_time)
+			corpus[end_time] =  getNews(args.query,start_time,end_time) #(list of news,labels)
 	return corpus
 def subtract_month(time,k):
 	#time = '02/01/2020'
@@ -47,6 +51,22 @@ def feature_select(corpus,k):
 	ans = sorted(c_tuples, key=lambda x:x[2],reverse = True)
 	word = list(set([tup[1] for tup in ans]))[:k]
 	return word,c_tuples
+def feature_select_with_chi2(corpus,lables,k):
+	vectorizer = TfidfVectorizer(max_features = 100000,sublinear_tf=True, stop_words="english", smooth_idf=True)
+	tfidf = vectorizer.fit_transform(corpus)
+	coo_matrix = tfidf.tocoo()
+	features = vectorizer.get_feature_names()
+	vocab = [features[wid] for wid in coo_matrix.col]
+	c_tuples =  zip(coo_matrix.row, vocab, coo_matrix.data)
+
+	chi2score = chi2(tfidf,lables)[0]
+	scores = list(zip(features,chi2score))
+	candidated  = sorted(scores,key = lambda x :x[1])
+	all_ans = list(zip(*candidated))
+	ans = all_ans[0][-k:]
+
+	return ans,c_tuples
+
 def news_select(query,corpus,c_tuples,k):
 	Total_news_num = len(corpus)
 	news_relv = []
@@ -57,12 +77,31 @@ def news_select(query,corpus,c_tuples,k):
 			if doc_id == news_index:
 				fake_doc += (word+" ")
 				tfidf_vals.append(tfidf_val)
-		norm_tfidf = [float(i)/sum(raw) for i in tfidf_vals]		
+		norm_tfidf = [float(i)/sum(tfidf_vals) for i in tfidf_vals]		
 		relv_val = get_sent_similarity(query,fake_doc,norm_tfidf)
 		news_relv.append(relv_val)
 	news_relv = np.array(news_relv)
-	ans = news_relv.argsort()[-k:][::-1]
-	return ans
+	ans_index = news_relv.argsort()[-k:][::-1]
+	#ans = [corpus[i] for i in ans_index]
+	return ans_index
+def preprocess(corpus):
+	porter = PorterStemmer()
+	for index ,news in enumerate(corpus):
+		token_words = word_tokenize(news)
+		stem_sent = []
+		for w in token_words:
+			stem_sent.append(porter.stem(w))
+			stem_sent.append(" ")
+		corpus[index] = "".join(stem_sent)
+	return corpus
+
+def write_to_csv(month,topk_term,rel_news):
+	with open('result.csv',"a",newline = "") as csvfile:
+		writer = csv.writer(csvfile)
+		writer.writerow(["Time","Hot_Term","News Title","News text"])
+		for news in rel_news:
+			writer.writerow([month,topk_term,news["title"],news["text"]])
+
 class Timer(object):
 	""" A quick tic-toc timer
 	Credit: http://stackoverflow.com/questions/5849800/tic-toc-functions-analog-in-python
