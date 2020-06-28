@@ -6,7 +6,7 @@ def get_corpus_in_time_interval(start_time, end_time, args):
     query = args.query
     page_count = args.pages
     
-    gn = GoogleNews(start_time, end_time)
+    gn = GoogleNews(start=start_time, end=end_time)
     corpus = list()
 
     gn.search(query)

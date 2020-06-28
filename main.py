@@ -13,20 +13,12 @@ def main():
     print('start preprocess', flush=True)
     preprocess_all_corpus(all_corpus)
     print('end preprocess', flush=True)
-    '''
-	for key,news in all_corpus.items():
-		all_corpus[key] = preprocess(news)
-    '''
-    '''
-	for month,(titles,texts,labels) in all_corpus.items():
-		#topk_term,c_tuple = feature_select(m_corpus,k = 20)
-		topk_term,c_tuple = feature_select_with_chi2(titles,texts,labels,k = 20)
-		m_corpus = [titles[_] + texts[_] for _ in range(len(titles))]
-		topk_rel_news = news_select(args.query,m_corpus,c_tuple,k = 3)
-		#write_to_csv(month,topk_term,topk_rel_news)
-		print("month:%s| most_rel_term:\n%s | most_rel_news:\n%s"%
-			(str(month),str(topk_term),topk_rel_news))
-    '''
+
+    for month,News in all_corpus.items():
+	topk_term = feature_select_with_chi2(News,k = 20)
+	topk_rel_news = news_select(args.query,News,k = 3)
+        #write_to_csv(month,topk_term,topk_rel_news)
+	print("month:%s| most_rel_term:\n%s | most_rel_news:\n%s"% (str(month),str(topk_term),topk_rel_news))
     test_result(all_corpus)
     return
 
