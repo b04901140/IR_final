@@ -73,7 +73,7 @@ def feature_select_with_chi2(News,k):
 
 	chi2score = chi2(tfidf,lables)[0]
 	scores = list(zip(features,chi2score))
-	print(scores)
+	#print(scores)
 	candidated  = sorted(scores,key = lambda x :x[1])
 	all_ans = list(zip(*candidated))
 	ans = all_ans[0][-k:][::-1]
