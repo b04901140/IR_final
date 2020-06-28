@@ -105,20 +105,41 @@ def news_select(query,corpus,c_tuples,k):
 	ans_index = news_relv.argsort()[-k:][::-1]
 	#ans = [corpus[i] for i in ans_index]
 	return ans_index
-def preprocess(corpus):
-	porter = PorterStemmer()
-	lemmatizer = WordNetLemmatizer()
-	stop_words = set(stopwords.words('english'))
-	for index ,news in enumerate(corpus):
-		token_words = word_tokenize(news)
-		tag_list = pos_tag(token_words)
-		token_words = [w for w in token_words if w not in stop_words]
-		token_words = [lemmatizer.lemmatize(w[0],pos = get_wordnet_pos(w[1])or wordnet.NOUN) for w in tag_list]
-		#token_words = [porter.stem(w) for w in token_words]
-		result = (" ".join(token_words))
-		result = ''.join([i for i in result if not i.isdigit()])
-		corpus[index] = result
-	return corpus
+ 
+
+def preprocess_all_corpus(all_corpus):
+    porter = PorterStemmer()
+    lemmatizer = WordNetLemmatizer()
+    stop_words = set(stopwords.words('english'))
+    for end_time, corpus in all_corpus.items():
+        for news in corpus:
+            preprocess(news, 'title', porter, lemmatizer, stop_words)
+            preprocess(news, 'mainText', porter, lemmatizer, stop_words)
+
+    return
+
+def preprocess(news, attr, porter, lemmatizer, stop_words):
+    if attr == 'mainText':
+        tokens = word_tokenize(news.mainText)
+    elif attr == 'title':
+        tokens = word_tokenize(news.title)
+
+    tags = pos_tag(tokens)
+    tokens = [t for t in tokens if t not in stop_words and not t.isdigit()]
+    tokens = [lemmatizer.lemmatize(w[0], pos=get_wordnet_pos(w[1]) or wordnet.NOUN) for w in tags]
+    tokens = [porter.stem(w) for w in tokens]
+            
+    result = (" ".join(tokens))
+
+    if attr == 'mainText':
+        news.mainText = result
+    elif attr == 'title':
+        news.title = result
+
+    return
+ 
+
+    
 
 def write_to_csv(month,topk_term,rel_news):
 	with open('result.csv',"a",newline = "") as csvfile:

@@ -5,15 +5,15 @@ class News:
 
     def __init__(self, raw_news):
 
-        mainText = self.get_mainText(raw_news['link'])
         self.relv = 0
+
+        mainText = self.get_mainText(raw_news['link'])
 
         self.setContent(raw_news['title'],
                         mainText,
                         raw_news['date'],
                         raw_news['link'])
 
-        #print(self.title, self.mainText)
 
     def __str__(self):
         return f'{self.title}\n{self.mainText}\n{self.date}\n{self.link}'
@@ -24,6 +24,8 @@ class News:
         self.mainText = mainText
         self.date = date
         self.link = link
+    
+   
     def set_relv(self):
         self.relv = 1
 
