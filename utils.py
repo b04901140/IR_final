@@ -4,6 +4,7 @@ import csv
 from argparse import ArgumentParser
 from datetime import datetime as dt
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_selection import chi2
 from dateutil.relativedelta import relativedelta
 from getSentSimilarity import get_sent_similarity
 from nltk  import word_tokenize,pos_tag
@@ -67,7 +68,7 @@ def feature_select_with_chi2(News,k):
 	lables = [x.relv for x in News]
 	corpus = [x.title for x in News]
 	vectorizer = TfidfVectorizer(max_features = 100000,sublinear_tf=True, stop_words="english", smooth_idf=True)
-	tfidf = vectorizer.fit_transform(title)
+	tfidf = vectorizer.fit_transform(corpus)
 	features = vectorizer.get_feature_names()
 
 	chi2score = chi2(tfidf,lables)[0]
