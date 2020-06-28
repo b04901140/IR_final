@@ -24,6 +24,7 @@ class News:
         self.mainText = mainText
         self.date = date
         self.link = link
+        self.rawTitle = title
     
    
     def set_relv(self):
