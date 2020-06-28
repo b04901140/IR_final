@@ -98,9 +98,7 @@ def news_select(query,News,k):
 			if doc_id == news_index:
 				fake_doc += (word+" ")
 				tfidf_vals.append(tfidf_val)
-		#print("tfidf_vals",tfidf_vals)
-		norm_tfidf = [float(i)/float(sum(tfidf_vals)) for i in tfidf_vals]
-		#print("norm_tfidf",norm_tfidf)		
+		norm_tfidf = [float(i)/float(sum(tfidf_vals)) for i in tfidf_vals]	
 		relv_val = get_sent_similarity(query,fake_doc,norm_tfidf)
 		rec_news.append(relv_val)
 	rec_news = np.array(rec_news)
