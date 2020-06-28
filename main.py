@@ -13,7 +13,7 @@ def main():
     print('start preprocess', flush=True)
     preprocess_all_corpus(all_corpus)
     print('end preprocess', flush=True)
-
+    args.query = "vietnam"
     for month,News in all_corpus.items():
         topk_term = feature_select_with_chi2(News,k = 20)
         topk_rel_news = news_select(args.query,News,k = 3)

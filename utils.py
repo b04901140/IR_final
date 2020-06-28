@@ -89,7 +89,8 @@ def news_select(query,News,k):
 	coo_matrix = tfidf.tocoo()
 	features = vectorizer.get_feature_names()
 	vocab = [features[wid] for wid in coo_matrix.col]
-	c_tuples =  zip(coo_matrix.row, vocab, coo_matrix.data)
+	c_tuples =  list(zip(coo_matrix.row, vocab, coo_matrix.data))
+	#print("c_tuples",c_tuples)
 	for news_index in range(Total_news_num):
 		fake_doc = ""
 		tfidf_vals = []
@@ -97,10 +98,13 @@ def news_select(query,News,k):
 			if doc_id == news_index:
 				fake_doc += (word+" ")
 				tfidf_vals.append(tfidf_val)
-		norm_tfidf = [float(i)/sum(tfidf_vals) for i in tfidf_vals]		
+		#print("tfidf_vals",tfidf_vals)
+		norm_tfidf = [float(i)/float(sum(tfidf_vals)) for i in tfidf_vals]
+		#print("norm_tfidf",norm_tfidf)		
 		relv_val = get_sent_similarity(query,fake_doc,norm_tfidf)
 		rec_news.append(relv_val)
 	rec_news = np.array(rec_news)
+	#print(rec_news)
 	ans_index = rec_news.argsort()[-k:][::-1]
 	#ans = [corpus[i] for i in ans_index]
 	return ans_index
