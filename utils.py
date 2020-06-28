@@ -24,8 +24,8 @@ def init_args():
     parser.add_argument('--query', default='Trump')
     parser.add_argument('--time', default='12/10/2019')
     parser.add_argument('--finish', default=False)
-    parser.add_argument('--months', default=1)
-    parser.add_argument('--pages', default=1)
+    parser.add_argument('--months', default=1,type = int)
+    parser.add_argument('--pages', default=2,type = int)
     return parser.parse_args()
 
 def create_corpus(args):
@@ -73,9 +73,10 @@ def feature_select_with_chi2(News,k):
 
 	chi2score = chi2(tfidf,lables)[0]
 	scores = list(zip(features,chi2score))
+	print(scores)
 	candidated  = sorted(scores,key = lambda x :x[1])
 	all_ans = list(zip(*candidated))
-	ans = all_ans[0][-k:]
+	ans = all_ans[0][-k:][::-1]
 
 	return ans
 def news_select(query,News,k):
@@ -122,10 +123,11 @@ def preprocess(news, attr, porter, lemmatizer, stop_words):
     elif attr == 'title':
         tokens = word_tokenize(news.title)
 
-    tags = pos_tag(tokens)
-    tokens = [t for t in tokens if t not in stop_words and not t.isdigit()]
-    tokens = [lemmatizer.lemmatize(w[0], pos=get_wordnet_pos(w[1]) or wordnet.NOUN) for w in tags]
-    tokens = [porter.stem(w) for w in tokens]
+    tokens = pos_tag(tokens)
+    tokens = [t for t in tokens if get_wordnet_pos(t[1])==wordnet.NOUN]
+    tokens = [t for t in tokens if t[0] not in stop_words and not t[0].isdigit()]
+    tokens = [lemmatizer.lemmatize(w[0], wordnet.NOUN) for w in tokens]
+    #tokens = [porter.stem(w) for w in tokens]
             
     result = (" ".join(tokens))
 
