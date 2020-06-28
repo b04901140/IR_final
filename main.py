@@ -19,7 +19,7 @@ def main():
         topk_rel_news = news_select(args.query,News,k = 3)
         #write_to_csv(month,topk_term,topk_rel_news)
         print("month:%s| most_rel_term:\n%s | most_rel_news:\n%s"% (str(month),str(topk_term),topk_rel_news))
-    test_result(all_corpus)
+    #test_result(all_corpus)
     return
 
 def test_result(all_corpus):
