@@ -55,15 +55,15 @@ def feature_select(News,k):
 	###  ans is list of tuple
 	###  ans = [(doc_id,word,tfidf_val)]
 	###  only return word
-	corpus = [x.mainText for x in News]
+	corpus = [x.title for x in News]
 	vectorizer = TfidfVectorizer(sublinear_tf=True, stop_words="english", smooth_idf=True)
 	coo_matrix = vectorizer.fit_transform(corpus).tocoo()
 	features = vectorizer.get_feature_names()
 	vocab = [features[wid] for wid in coo_matrix.col]
-	c_tuples =  zip(coo_matrix.row, vocab, coo_matrix.data)
+	c_tuples =  list(zip(coo_matrix.row, vocab, coo_matrix.data))
 	ans = sorted(c_tuples, key=lambda x:x[2],reverse = True)
-	word = list(set([tup[1] for tup in ans]))[:k]
-	return word,c_tuples
+	word = list(set([tup[1] for tup in ans]))[:k][::-1]
+	return word
 def feature_select_with_chi2(News,k):
 	lables = [x.relv for x in News]
 	corpus = [x.title for x in News]
