@@ -63,34 +63,31 @@ def feature_select(News,k):
 	ans = sorted(c_tuples, key=lambda x:x[2],reverse = True)
 	word = list(set([tup[1] for tup in ans]))[:k]
 	return word,c_tuples
-def feature_select_with_chi2(title,text,lables,k):
-	lables = np.array(lables)
+def feature_select_with_chi2(News,k):
+	lables = [x.relv for x in News]
+	corpus = [x.title for x in News]
 	vectorizer = TfidfVectorizer(max_features = 100000,sublinear_tf=True, stop_words="english", smooth_idf=True)
-	corpus = [title[_] + text[_] for _ in range(len(text))]
-	tfidf = vectorizer.fit_transform(corpus)
-	coo_matrix = tfidf.tocoo()
+	tfidf = vectorizer.fit_transform(title)
 	features = vectorizer.get_feature_names()
-	vocab = [features[wid] for wid in coo_matrix.col]
-	c_tuples =  zip(coo_matrix.row, vocab, coo_matrix.data)
 
-
-
-
-
-	#for title
-	vec2 = TfidfVectorizer(max_features = 100000,sublinear_tf=True, stop_words="english", smooth_idf=True)
-	tfidf_for_title = vec2.fit_transform(title)
-
-	chi2score = chi2(tfidf_for_title,lables)[0]
+	chi2score = chi2(tfidf,lables)[0]
 	scores = list(zip(features,chi2score))
 	candidated  = sorted(scores,key = lambda x :x[1])
 	all_ans = list(zip(*candidated))
 	ans = all_ans[0][-k:]
 
-	return ans,c_tuples
-def news_select(query,corpus,c_tuples,k):
-	Total_news_num = len(corpus)
-	news_relv = []
+	return ans
+def news_select(query,News,k):
+	Total_news_num = len(News)
+	lables = np.array([x.relv for x in News])
+	corpus = [x.title + x.mainText for x in News]
+	rec_news = []
+	vectorizer = TfidfVectorizer(max_features = 100000,sublinear_tf=True, stop_words="english", smooth_idf=True)
+	tfidf = vectorizer.fit_transform(corpus)
+	coo_matrix = tfidf.tocoo()
+	features = vectorizer.get_feature_names()
+	vocab = [features[wid] for wid in coo_matrix.col]
+	c_tuples =  zip(coo_matrix.row, vocab, coo_matrix.data)
 	for news_index in range(Total_news_num):
 		fake_doc = ""
 		tfidf_vals = []
@@ -100,12 +97,12 @@ def news_select(query,corpus,c_tuples,k):
 				tfidf_vals.append(tfidf_val)
 		norm_tfidf = [float(i)/sum(tfidf_vals) for i in tfidf_vals]		
 		relv_val = get_sent_similarity(query,fake_doc,norm_tfidf)
-		news_relv.append(relv_val)
-	news_relv = np.array(news_relv)
-	ans_index = news_relv.argsort()[-k:][::-1]
+		rec_news.append(relv_val)
+	rec_news = np.array(rec_news)
+	ans_index = rec_news.argsort()[-k:][::-1]
 	#ans = [corpus[i] for i in ans_index]
 	return ans_index
-def preprocess(corpus):
+def preprocess(News):
 	porter = PorterStemmer()
 	lemmatizer = WordNetLemmatizer()
 	stop_words = set(stopwords.words('english'))
