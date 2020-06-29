@@ -1,0 +1,79 @@
+start preprocess
+end preprocess
+month:12/10/2019| most_rel_term:
+('war', 'vietnam', 'unification', 'trade', 'taiwan', 'spy', 'sale', 'model', 'marshall', 'islands', 'involvement', 'heart', 'exit', 'dy', 'china', 'benefit', 'attack', 'allegiance', 'actor') | most_rel_news:
+[1 4 0]
+Title: Chinese spy confirms China's involvement in Taiwan 2020 ...
+
+Link: https://www.taiwannews.com.tw/en/news/3823123
+
+Title: US aims to protect Taiwan against military unification with China
+
+Link: https://www.taiwannews.com.tw/en/news/3817707
+
+Title: Taiwanese-Canadian model-actor dies from heart attack on ...
+
+Link: https://www.taiwannews.com.tw/en/news/3825576
+
+month:11/10/2019| most_rel_term:
+('taiwan', 'suspect', 'suitcase', 'recognition', 'question', 'protest', 'murder', 'minister', 'meet', 'measures', 'kong', 'hong', 'defence', 'china') | most_rel_news:
+[0 1 3]
+Title: German calling for Taiwan's recognition meets diplomat
+
+Link: https://www.taiwannews.com.tw/en/news/3811277
+
+Title: Hong Kong protests: Suitcase murder suspect to be released ...
+
+Link: https://www.taiwannews.com.tw/en/news/3798405
+
+Title: China's defence minister says resolving 'Taiwan question' is ...
+
+Link: https://www.reuters.com/article/us-china-defence-taiwan/chinas-defence-minister-says-resolving-taiwan-question-is-national-priority-idUSKBN1X003H
+
+month:10/10/2019| most_rel_term:
+('update', 'terry', 'taiwan', 'solomon', 'president', 'philippine', 'personnel', 'ne', 'loss', 'islands', 'guard', 'gou', 'foxconn', 'founder', 'fatal', 'coast', 'bridge', 'blow') | most_rel_news:
+[1 2 0]
+Title: 8 Philippine Coast Guard personnel convicted for 2013 fatal ...
+
+Link: https://www.taiwannews.com.tw/en/news/3779034
+
+Title: Foxconn founder Terry Gou will not run for Taiwan president
+
+Link: https://www.taiwannews.com.tw/en/news/3778082
+
+Title: Update: Bridge collapses in NE Taiwan, 6 dead, 12 injured
+
+Link: https://www.taiwannews.com.tw/en/news/3787909
+
+month:09/10/2019| most_rel_term:
+('warning', 'tropical', 'threat', 'taiwan', 'strait', 'storm', 'spending', 'ship', 'sea', 'navy', 'military', 'lift', 'land', 'increase', 'defense', 'china', 'bailu', 'aims') | most_rel_news:
+[2 0 1]
+Title: US Navy ship passes through Taiwan Strait
+
+Link: https://www.taiwannews.com.tw/en/news/3766917
+
+Title: Taiwan Aims to Increase Military Spending
+
+Link: https://learningenglish.voanews.com/a/taiwan-aims-to-increase-military-spending/5049495.html
+
+Title: Taiwan lifts land, sea warnings for Tropical Storm Bailu
+
+Link: https://www.taiwannews.com.tw/en/news/3766697
+
+month:08/10/2019| most_rel_term:
+('typhoon', 'tiger', 'taiwan', 'smuggler', 'roar', 'request', 'republic', 'rate', 'race', 'poll', 'people', 'lin', 'lekima', 'kmt', 'jeremy', 'horse', 'han', 'growth', 'golden', 'czech') | most_rel_news:
+[5 2 1]
+Title: Czech Republic denies China's request for Taiwanese ...
+
+Link: https://www.taiwannews.com.tw/en/news/3745547
+
+Title: Han wins KMT primary poll for Taiwan presidential race
+
+Link: https://www.taiwannews.com.tw/en/news/3744684
+
+Title: Taiwan's CWB expands land warning for Typhoon Lekima
+
+Link: https://www.taiwannews.com.tw/en/news/3760787
+
+[('war', 'vietnam', 'unification', 'trade', 'taiwan', 'spy', 'sale', 'model', 'marshall', 'islands', 'involvement', 'heart', 'exit', 'dy', 'china', 'benefit', 'attack', 'allegiance', 'actor'), ('taiwan', 'suspect', 'suitcase', 'recognition', 'question', 'protest', 'murder', 'minister', 'meet', 'measures', 'kong', 'hong', 'defence', 'china'), ('update', 'terry', 'taiwan', 'solomon', 'president', 'philippine', 'personnel', 'ne', 'loss', 'islands', 'guard', 'gou', 'foxconn', 'founder', 'fatal', 'coast', 'bridge', 'blow'), ('warning', 'tropical', 'threat', 'taiwan', 'strait', 'storm', 'spending', 'ship', 'sea', 'navy', 'military', 'lift', 'land', 'increase', 'defense', 'china', 'bailu', 'aims'), ('typhoon', 'tiger', 'taiwan', 'smuggler', 'roar', 'request', 'republic', 'rate', 'race', 'poll', 'people', 'lin', 'lekima', 'kmt', 'jeremy', 'horse', 'han', 'growth', 'golden', 'czech')]
+Input a keyword that you are interested in:  

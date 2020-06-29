@@ -1,0 +1,64 @@
+start preprocess
+end preprocess
+month:12/10/2019| most_rel_term:
+('yasuhiro', 'weapon', 'water', 'visit', 'spacecraft', 'south', 'shinzo', 'real', 'pope', 'pact', 'package', 'north', 'nakasone', 'missile', 'minister', 'life', 'korea', 'japan', 'home', 'hayabusa') | most_rel_news:
+[4 2 6]
+Title: Japan's Ex-Prime Minister Yasuhiro Nakasone Dies at 101 ...
+
+Link: https://www.voanews.com/east-asia-pacific/japans-ex-prime-minister-yasuhiro-nakasone-dies-101
+
+Title: North Korea threatens Japan with 'real ballistic missile'
+
+Link: https://www.bbc.com/news/world-asia-50613051
+
+Title: 'He Showed Us Life': Japanese Doctor Who Brought Water to ...
+
+Link: https://www.nytimes.com/2019/12/04/world/asia/afghanistan-tetsu-nakamura-dead.html
+
+month:11/10/2019| most_rel_term:
+('year', 'world', 'work', 'week', 'typhoon', 'tokyo', 'success', 'skill', 'site', 'shuri', 'saturday', 'rugby', 'rescuer', 'productivity', 'naruhito', 'moment', 'microsoft', 'japan', 'hopes', 'home') | most_rel_news:
+[4 6 8]
+Title: Japan's Success at World Cup Buoys Hopes for Rugby at Home
+
+Link: https://www.nytimes.com/2019/10/17/sports/rugby/japans-success-at-world-cup-buoys-hopes-for-rugby-at-home.html
+
+Title: Rugby World Cup 2019: Memorable moments from Japan
+
+Link: https://www.bbc.co.uk/sport/rugby-union/50248138
+
+Title: Saturday running cancelled in Japan – full revised timetable ...
+
+Link: https://www.formula1.com/en/latest/article.saturday-running-cancelled-in-japan-full-revised-timetable-for-sunday.7bCNvGLXjco9zJUIEKgtvu.html
+
+month:10/10/2019| most_rel_term:
+('world', 'united', 'typhoon', 'trump', 'tax', 'super', 'success', 'strike', 'states', 'statement', 'start', 'scene', 'russians', 'rugby', 'president', 'pool', 'point', 'notification', 'missile', 'message') | most_rel_news:
+[9 0 5]
+Title: Rugby World Cup games in doubt as Super Typhoon Hagibis ...
+
+Link: https://www.abc.net.au/news/2019-10-09/typhoon-hagibis-approaches-japan-and-may-affect-rugby-world-cup/11585224
+
+Title: Japan off to flying start after Russians strike first blow
+
+Link: https://www.rugbyworldcup.com/news/472144
+
+Title: North Korean Missile Delivers a Message: There's Little Japan ...
+
+Link: https://www.nytimes.com/2019/10/02/world/asia/japan-north-korea-missile.html
+
+month:09/10/2019| most_rel_term:
+('train', 'trade', 'tension', 'strike', 'south', 'sin', 'principle', 'pact', 'order', 'korea', 'japan', 'intelligence', 'goal', 'failure', 'deal', 'dead', 'crash', 'commuter', 'ax') | most_rel_news:
+[0 1 5]
+Title: South Korea axes pact on sharing military intelligence with ...
+
+Link: https://www.washingtonpost.com/world/asia_pacific/south-korea-axes-pact-to-share-military-intelligence-with-japan/2019/08/22/fe57061c-c4be-11e9-8bf7-cde2d9e09055_story.html
+
+Title: Tension between South Korea and Japan could hurt US goals ...
+
+Link: https://www.defensenews.com/global/asia-pacific/2019/08/15/tension-between-south-korea-and-japan-could-hurt-us-goals-in-the-pacific-and-china-is-watching/
+
+Title: Japan commuter train crash leaves one dead and 34 injured
+
+Link: https://asia.nikkei.com/Location/East-Asia/Japan/Japan-commuter-train-crash-leaves-one-dead-and-34-injured
+
+[('yasuhiro', 'weapon', 'water', 'visit', 'spacecraft', 'south', 'shinzo', 'real', 'pope', 'pact', 'package', 'north', 'nakasone', 'missile', 'minister', 'life', 'korea', 'japan', 'home', 'hayabusa'), ('year', 'world', 'work', 'week', 'typhoon', 'tokyo', 'success', 'skill', 'site', 'shuri', 'saturday', 'rugby', 'rescuer', 'productivity', 'naruhito', 'moment', 'microsoft', 'japan', 'hopes', 'home'), ('world', 'united', 'typhoon', 'trump', 'tax', 'super', 'success', 'strike', 'states', 'statement', 'start', 'scene', 'russians', 'rugby', 'president', 'pool', 'point', 'notification', 'missile', 'message'), ('train', 'trade', 'tension', 'strike', 'south', 'sin', 'principle', 'pact', 'order', 'korea', 'japan', 'intelligence', 'goal', 'failure', 'deal', 'dead', 'crash', 'commuter', 'ax')]
+Input a keyword that you are interested in:  
